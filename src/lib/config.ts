@@ -2,7 +2,7 @@
 const serverOrigin =
   process.env.BACKEND_ORIGIN ||
   (process.env.NODE_ENV === "production"
-    ? "https://api.ro-eh.com"        // use :9090 here only if your API really listens on 9090 with TLS
+    ? "https://api.ro-eh.com"
     : "http://localhost:3000");
 
 export const API_BASE = typeof window === "undefined" ? serverOrigin : "";
