@@ -6,6 +6,7 @@ import type React from "react";
 import type { Pastor, Msg, Source, AskResponse } from "@/lib/types";
 import { FALLBACK_PASTORS, API_BASE, PASTORS_URL, ASK_TIMEOUT_MS, TOP_K } from "@/lib/config";
 import { normalize, makeSessionId, newId, isGreeting, instantGreeting } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 
 /** ----- helpers & type guards ----- */
 type PastorsFile = { pastors?: unknown };
@@ -95,6 +96,7 @@ export function useChat() {
   const [pastorQuery, setPastorQuery] = useState("");
   const [activeIdx, setActiveIdx] = useState(0);
   const [showPastorMenu, setShowPastorMenu] = useState(false);
+  const { token, authorizedFetch } = useAuth();
 
   // thread
   const [messages, setMessages] = useState<Msg[]>([
@@ -191,6 +193,8 @@ export function useChat() {
         session_id: sessionId,
       });
 
+      if (token) params.set("token", token);
+
       // API_BASE is "" in browser -> relative HTTPS; absolute on server
       const url = `${API_BASE}/ask/stream?${params.toString()}`;
 
@@ -209,7 +213,7 @@ export function useChat() {
           esRef.current = null;
           reject(new Error("first_token_timeout"));
         }
-      }, 1800);
+      }, 2500);
 
       es.addEventListener("token", (ev: MessageEvent<string>) => {
         const delta = String(ev.data || "");
@@ -240,18 +244,18 @@ export function useChat() {
         reject(new Error("SSE failed"));
       });
     });
-  }, [sessionId]);
+  }, [sessionId, token]);
 
   const fetchAnswerFromBackend = useCallback(
     async (question: string, pastorSlug: string, controller: AbortController): Promise<AskResponse> => {
       const timeout = setTimeout(() => controller.abort(), ASK_TIMEOUT_MS);
       fetchCtrlRef.current = controller;
       try {
-        const res = await fetch(`${API_BASE}/ask`, {
+        const res = await authorizedFetch(`${API_BASE}/ask`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ question, pastor_slug: pastorSlug, top_k: TOP_K, session_id: sessionId }),
-          signal: controller.signal,
+          signal: controller.signal as any,
         });
 
         type AskRaw = Partial<AskResponse> & { error?: string };
@@ -277,7 +281,7 @@ export function useChat() {
         fetchCtrlRef.current = null;
       }
     },
-    [sessionId]
+    [sessionId, authorizedFetch]
   );
 
   /* ---- actions ---- */
