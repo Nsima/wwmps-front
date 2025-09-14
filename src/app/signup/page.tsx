@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export default function SignupPage() {
   const [showPw, setShowPw] = useState(false);
+  const [usePhone, setUsePhone] = useState(false);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ export default function SignupPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-indigo-50 to-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Logo / Title */}
+        {/* Title */}
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-indigo-700">Create your account</h1>
           <p className="text-sm text-gray-600 mt-1">
@@ -27,7 +28,6 @@ export default function SignupPage() {
 
         {/* Card */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-          {/* Socials (stub) */}
           <div className="space-y-2">
             <button className="w-full rounded-lg border border-gray-300 hover:bg-gray-50 py-2.5 text-sm">
               Sign up with Google
@@ -35,7 +35,11 @@ export default function SignupPage() {
             <button className="w-full rounded-lg border border-gray-300 hover:bg-gray-50 py-2.5 text-sm">
               Sign up with Apple
             </button>
-            <button className="w-full rounded-lg border border-gray-300 hover:bg-gray-50 py-2.5 text-sm">
+            <button
+              type="button"
+              onClick={() => setUsePhone(true)}
+              className="w-full rounded-lg border border-gray-300 hover:bg-gray-50 py-2.5 text-sm"
+            >
               Sign up with Phone
             </button>
           </div>
@@ -59,14 +63,26 @@ export default function SignupPage() {
             </label>
 
             <label className="block">
-              <span className="text-sm text-gray-700">Email</span>
+              <span className="text-sm text-gray-700">{usePhone ? "Phone" : "Email"}</span>
               <input
-                name="email"
-                type="email"
+                name={usePhone ? "phone" : "email"}
+                type={usePhone ? "tel" : "email"}
+                inputMode={usePhone ? "tel" : "email"}
+                autoComplete={usePhone ? "tel" : "email"}
+                pattern={usePhone ? "[+0-9 ()-]{7,}" : undefined}
                 required
                 className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
-                placeholder="you@example.com"
+                placeholder={usePhone ? "+234 801 234 5678" : "you@example.com"}
               />
+              <div className="mt-1">
+                <button
+                  type="button"
+                  onClick={() => setUsePhone((v) => !v)}
+                  className="text-xs text-indigo-600 hover:underline"
+                >
+                  {usePhone ? "Use email instead" : "Use phone instead"}
+                </button>
+              </div>
             </label>
 
             <label className="block">
