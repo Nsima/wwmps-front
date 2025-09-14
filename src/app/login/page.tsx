@@ -3,16 +3,24 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function LoginPage() {
   const [showPw, setShowPw] = useState(false);
   const [usePhone, setUsePhone] = useState(false);
+  const { login } = useAuth();
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget as HTMLFormElement);
-    console.log("login submit", Object.fromEntries(fd.entries()));
-    // TODO: call your real sign-in
+    const email = String(fd.get("email") || "");
+    const phone = String(fd.get("phone") || "");
+    const password = String(fd.get("password") || "");
+    try {
+        await login({ email: email || undefined, phone: phone || undefined, password });
+    } catch (err: any) {
+        alert(err.message || "Login error");
+    }
   };
 
   return (

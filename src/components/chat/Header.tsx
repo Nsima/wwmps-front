@@ -1,11 +1,13 @@
 //src/components/chat/Header.tsx
 "use client";
 import { Settings, HelpCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 import AuthButtons from "../auth/AuthButtons";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function Header({ label, onHelp }: { label: string; onHelp?: () => void }) {
-  const { isAuthenticated, login, signup } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
 
   return (
     <header className="bg-indigo-700 text-white p-4 shadow-md">
@@ -17,7 +19,10 @@ export default function Header({ label, onHelp }: { label: string; onHelp?: () =
         <div className="flex items-center gap-3">
           {/* Show CTA if not authenticated */}
           {!isAuthenticated && (
-            <AuthButtons onLogin={login} onSignup={signup} />
+            <AuthButtons 
+            onLogin={() => router.push("/login")}
+            onSignup={() => router.push("/signup")} 
+            />
           )}
 
           {/* Existing icons */}

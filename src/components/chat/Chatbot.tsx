@@ -2,6 +2,7 @@
 "use client";
 
 import Header from "./Header";
+import { useRouter } from "next/navigation";
 import PastorSwitcher from "./PastorSwitcher";
 import MessageList from "./MessageList";
 import Composer from "./Composer";
@@ -21,7 +22,8 @@ export default function Chatbot() {
     handleSendMessage, handleStop, handleKeyPress, selectPastor,
   } = useChat();
 
-  const { isAuthenticated, login, signup } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
 
   // Open once between 5–10 user interactions if not logged in
   const { open: gateOpen, close: closeGate, continueAsGuest } = useInteractionGate(messages, {
@@ -97,13 +99,13 @@ export default function Chatbot() {
 
           <div className="flex flex-col sm:flex-row gap-2 pt-2">
             <button
-              onClick={signup}
+              onClick={() => router.push("/signup")}
               className="flex-1 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700"
             >
               Sign up for free
             </button>
             <button
-              onClick={login}
+              onClick={() => router.push("/login")}
               className="flex-1 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50"
             >
               Log in

@@ -3,16 +3,30 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function SignupPage() {
   const [showPw, setShowPw] = useState(false);
   const [usePhone, setUsePhone] = useState(false);
+  const { signup } = useAuth();
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget as HTMLFormElement);
-    console.log("signup submit", Object.fromEntries(fd.entries()));
-    // TODO: call your real sign-up
+    const name = String(fd.get("name") || "");
+    const email = String(fd.get("email") || "");
+    const phone = String(fd.get("phone") || "");
+    const password = String(fd.get("password") || "");
+    try {
+        await signup({
+        name: name || undefined,
+        email: email || undefined,
+        phone: phone || undefined,
+        password,
+        });
+    } catch (err: any) {
+        alert(err.message || "Signup error");
+    }
   };
 
   return (
