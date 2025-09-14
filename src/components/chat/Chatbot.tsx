@@ -1,5 +1,4 @@
-// src/components/chat/Chatbot.tsx
-
+//src/components/chat/Chatbot.tsx
 "use client";
 
 import Header from "./Header";
@@ -9,6 +8,9 @@ import Composer from "./Composer";
 import { useChat } from "@/hooks/useChat";
 import { useFirstRunTour } from "@/hooks/userFirstRunTour";
 import TourOverlay from "./TourOverlay";
+import Modal from "@/components/ui/Modal";
+import { useAuth } from "@/hooks/useAuth";
+import { useInteractionGate } from "@/hooks/useInteractionGate";
 
 export default function Chatbot() {
   const {
@@ -18,6 +20,15 @@ export default function Chatbot() {
     setPastorQuery, setActiveIdx, setShowPastorMenu, setInput,
     handleSendMessage, handleStop, handleKeyPress, selectPastor,
   } = useChat();
+
+  const { isAuthenticated, login, signup } = useAuth();
+
+  // Open once between 5–10 user interactions if not logged in
+  const { open: gateOpen, close: closeGate } = useInteractionGate(messages, {
+    min: 5,
+    max: 10,
+    disabled: isAuthenticated,
+  });
 
   const {
     open, steps, stepIndex, next, prev, close, restart,
@@ -70,6 +81,39 @@ export default function Chatbot() {
         onPrev={prev}
         onClose={close}
       />
+
+      {/* Signup/Login Gate */}
+      <Modal open={gateOpen} onClose={closeGate}>
+        <div className="space-y-3">
+          <h2 className="text-lg font-semibold text-indigo-700">
+            To continue, please sign up or log in.
+          </h2>
+          <p className="text-gray-700">
+            You’ve reached the free preview limit. Create a free account to keep the conversation going
+            and get better personalization (pastor preferences, history, and more).
+          </p>
+          <div className="flex items-center gap-2 pt-2">
+            <button
+              onClick={signup}
+              className="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700"
+            >
+              Sign up for free
+            </button>
+            <button
+              onClick={login}
+              className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50"
+            >
+              Log in
+            </button>
+            <button
+              onClick={closeGate}
+              className="ml-auto text-sm text-gray-500 hover:text-gray-700"
+            >
+              Not now
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
