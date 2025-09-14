@@ -1,11 +1,11 @@
 // src/lib/config.ts
-const serverOrigin =
-  process.env.BACKEND_ORIGIN ||
-  (process.env.NODE_ENV === "production"
-    ? "https://api.ro-eh.com"
-    : "http://localhost:3000");
+const serverOrigin = "https://api.ro-eh.com";
+  //process.env.BACKEND_ORIGIN ||
+  //(process.env.NODE_ENV === "production"
+    //? "https://api.ro-eh.com"
+    //: "http://localhost:3000");
 
-export const API_BASE = typeof window === "undefined" ? serverOrigin : "";
+export const API_BASE = "https://api.ro-eh.com";
 export const PASTORS_URL = process.env.NEXT_PUBLIC_PASTORS_URL || "/tools/pastors.json";
 export const ENDPOINTS = {
   ask: "/ask",

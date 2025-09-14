@@ -17,7 +17,6 @@ const HONORIFICS = [
 ];
 function stripHonorifics(fullName: string): string {
   let s = fullName.trim();
-  // Remove up to a few stacked prefixes like "Rev. Dr."
   for (let i = 0; i < 3; i++) {
     let changed = false;
     for (const h of HONORIFICS) {

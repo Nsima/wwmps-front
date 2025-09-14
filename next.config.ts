@@ -1,13 +1,13 @@
 import type { NextConfig } from "next";
 
-const BACKEND_ORIGIN =
-  process.env.BACKEND_ORIGIN ??
-  (process.env.NODE_ENV === "production"
-    ? "https://api.ro-eh.com"      // or "https://api.ro-eh.com:9090"
-    : "http://localhost:3000");
+const BACKEND_ORIGIN = "https://api.ro-eh.com";
+  //process.env.BACKEND_ORIGIN ??
+  //(process.env.NODE_ENV === "test"
+    //? "https://api.ro-eh.com"
+    //: "http://localhost:3000");
 
 const nextConfig: NextConfig = {
-  eslint: { ignoreDuringBuilds: true }, // TEMP while you finish strict typing
+  eslint: { ignoreDuringBuilds: true },
 
   async rewrites() {
     return [
