@@ -1,3 +1,4 @@
+// src/components/chat/Composer.tsx
 "use client";
 import { Send } from "lucide-react";
 

@@ -1,3 +1,5 @@
+// src/components/chat/Chatbot.tsx
+
 "use client";
 
 import Header from "./Header";

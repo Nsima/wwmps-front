@@ -1,3 +1,4 @@
+// src/components/chat/Header.tsx
 "use client";
 import { Settings, HelpCircle } from "lucide-react";
 

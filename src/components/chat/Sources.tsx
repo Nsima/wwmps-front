@@ -1,3 +1,4 @@
+// src/components/chat/Sources.tsx
 "use client";
 import type { Source } from "@/lib/types";
 

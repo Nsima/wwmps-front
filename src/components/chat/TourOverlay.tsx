@@ -1,3 +1,4 @@
+// src/components/chat/TourOverlay.tsx
 "use client";
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
