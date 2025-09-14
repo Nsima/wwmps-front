@@ -62,7 +62,7 @@ export function useInteractionGate(messages: Msg[], opts: Options) {
     setOpen(false);
   };
 
-  // Optional: expose a way to clear guest flag (e.g., after signup/login)
+  // Optional: expose a way to clear guest flag
   const clearGuest = () => {
     try { localStorage.removeItem(guestKey); } catch {}
   };
