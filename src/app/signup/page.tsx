@@ -1,5 +1,4 @@
 //src/app/signup/page.tsx
-
 "use client";
 
 import Link from "next/link";
@@ -34,7 +33,10 @@ export default function SignupPage() {
               Sign up with Google
             </button>
             <button className="w-full rounded-lg border border-gray-300 hover:bg-gray-50 py-2.5 text-sm">
-              Sign up with GitHub
+              Sign up with Apple
+            </button>
+            <button className="w-full rounded-lg border border-gray-300 hover:bg-gray-50 py-2.5 text-sm">
+              Sign up with Phone
             </button>
           </div>
 

@@ -33,7 +33,10 @@ export default function LoginPage() {
               Continue with Google
             </button>
             <button className="w-full rounded-lg border border-gray-300 hover:bg-gray-50 py-2.5 text-sm">
-              Continue with GitHub
+              Continue with Apple
+            </button>
+            <button className="w-full rounded-lg border border-gray-300 hover:bg-gray-50 py-2.5 text-sm">
+              Continue with Phone
             </button>
           </div>
 

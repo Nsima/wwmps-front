@@ -85,9 +85,11 @@ export default function Chatbot() {
       {/* Signup/Login Gate */}
       <Modal open={gateOpen} onClose={closeGate}>
         <div className="space-y-3">
+          <center>
           <h2 className="text-lg font-semibold text-indigo-700">
-            To continue, please sign up or log in.
+            Thanks for trying AskRabbi.
           </h2>
+          </center>
           <p className="text-gray-700">
             You’ve reached the free preview limit. Create a free account to keep the conversation going
             and get better personalization (pastor preferences, history, and more).
