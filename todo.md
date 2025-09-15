@@ -316,3 +316,62 @@ A prioritized backlog of upgrades for speed, relevance, safety, and Naija-aware 
 - Keep Naija lingo **light** and never inside Scripture quotes.
 - Ensure OpenAI usage shows `provider=openai` in logs when enabled.
 - Keep **Developer/Creator** answers free of doctrine/prayer and free of secrets/PII.
+
+
+---
+
+## P0 — Header & Auth polish (Frontend)
+
+- [x] **Avatar initials + dropdown** (Profile / Logout) in header.
+- [x] **Dropdown z-index fix** so it appears above PastorSwitcher.
+- [x] **Auth buttons stacked on mobile** (`flex-col sm:flex-row` + `whitespace-nowrap`).
+- [x] **“Continue as guest”** in the upsell modal.
+- [x] **Gate remembers guest choice** via `localStorage` (suppress re-open).
+- [ ] **Hide Settings button when logged out**; show only for authenticated users.
+- [ ] **Clear guest flag after successful auth** and refresh header.
+- [ ] **/account link** from the avatar dropdown (route stub).
+
+## P1 — UI Pages & Navigation (new)
+
+- [ ] **/account** — Profile & preferences
+  - [ ] Edit name + email/phone
+  - [ ] Change password
+  - [ ] Default pastor selector (persist)
+  - [ ] Scripture version preference (KJV/NKJV/NIV/ESV)
+  - [ ] Delete account (danger zone)
+
+- [ ] **/history** — Conversation list
+  - [ ] Group by `session_id`, show last message/time
+  - [ ] Detail: **/c/[sessionId]** (load thread, continue chat)
+  - [ ] Delete conversation
+
+- [ ] **/search** — Retrieve-only page
+  - [ ] Call **POST /search**
+  - [ ] Results list (title, snippet, score)
+  - [ ] Actions: **Insert into chat**, **Open source**
+
+- [ ] **/sources** — Sermon browser
+  - [ ] Filters: pastor, date/series, scripture ref
+  - [ ] Detail route: **/sources/[chunkId]** (full passage + “Ask about this”)
+
+- [ ] **/pastors** — Directory
+  - [ ] Grid of pastors (avatar, era)
+  - [ ] Bio page: **/pastors/[slug]** (select as default)
+
+- [ ] **/pricing** — Plans & limits
+  - [ ] Free vs Pro copy + limits (ties to upsell modal)
+  - [ ] CTA to **/signup** and **/billing**
+
+- [ ] **/billing** — Stripe customer portal link
+
+- [ ] **/help** (or **/faq**) — How it works, data sources, accuracy notes, contact
+
+- [ ] **/privacy** & **/terms** — Link from footer + auth pages
+
+- [ ] **/forgot-password** & **/reset-password** — Email link flow (token param)
+
+- [ ] **/verify** — Email/phone verification landing (token or OTP)
+
+- [ ] **/status** — Backend health + version (hits `/health`)
+
+- [ ] **/404** & **/500** — Branded error pages
