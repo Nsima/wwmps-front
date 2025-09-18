@@ -375,3 +375,7 @@ A prioritized backlog of upgrades for speed, relevance, safety, and Naija-aware 
 - [ ] **/status** — Backend health + version (hits `/health`)
 
 - [ ] **/404** & **/500** — Branded error pages
+
+- [ ] **Daily Uplifting stories**
+
+- [ ] **A message for today**
